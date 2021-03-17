@@ -5,11 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,13 +31,20 @@ class MainActivity : ComponentActivity() {
         Column(
             modifier = Modifier.padding(12.dp)
         ) {
-            Image(painter = image, contentDescription = "")
+            val imageModifier = Modifier.height(180.dp)
+            Image(
+                painter = image,
+                contentDescription = "",
+                modifier = imageModifier,
+                contentScale = ContentScale.Fit
+            )
+            Spacer(modifier = Modifier.height(16.dp))
             Text(text = "ABC")
             Text(text = "DEF")
             Text(text = "GHI")
         }
     }
-    
+
     @Preview
     @Composable
     fun DefaultPreview() {
