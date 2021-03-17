@@ -3,6 +3,9 @@ package com.example.basicscodelab
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -35,7 +38,7 @@ fun MyApp(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun MyScreenContent(names: List<String> = List(1000) { "Hello, Android #$it" }) {
+fun MyScreenContent(names: List<String> = List(size = 100, init = { "Hello, Android #$it" })) {
     val counterState = remember { mutableStateOf(0) }
     Column {
         NameList(names)
@@ -75,7 +78,16 @@ fun Counter(count: Int, updateCount: (Int) -> Unit) {
 
 @Composable
 fun Greeting(name: String) {
-    Text(text = "Hello $name!", modifier = Modifier.padding(16.dp))
+    val isSelected = remember { mutableStateOf(false) }
+    val backgroundColor =
+        animateColorAsState(targetValue = if (isSelected.value) Color.Red else Color.Transparent)
+    Text(
+        text = "Hello $name!",
+        modifier = Modifier
+            .padding(16.dp)
+            .clickable(onClick = { isSelected.value = !isSelected.value })
+            .background(backgroundColor.value),
+    )
 }
 
 @Preview("MyScreen preview")
