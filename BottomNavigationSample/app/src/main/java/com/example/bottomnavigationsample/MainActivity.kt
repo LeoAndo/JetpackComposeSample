@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -105,7 +104,7 @@ fun BottomNavigationBar(
     onItemClick: (BottomNavItem) -> Unit
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
-    BottomNavigation(modifier = modifier, backgroundColor = Color.DarkGray, elevation = 6.dp) {
+    BottomNavigation(modifier = modifier) {
         items.forEach { item ->
             val selected = item.route == backStackEntry.value?.destination?.route
             BottomNavigationItem(
