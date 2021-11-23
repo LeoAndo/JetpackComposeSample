@@ -112,15 +112,6 @@ fun TodoRow(
 }
 
 @Composable
-fun TodoInputTextField(
-    text: String,
-    onTextChange: (String) -> Unit,
-    modifier: Modifier
-) {
-    TodoInputText(text, onTextChange, modifier)
-}
-
-@Composable
 fun TodoItemInput(onItemComplete: (TodoItem) -> Unit) {
     val (text, setText) = remember {
         mutableStateOf("")
