@@ -24,6 +24,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -115,6 +116,12 @@ fun TodoItemInput(onItemComplete: (TodoItem) -> Unit) {
         mutableStateOf(TodoIcon.Default)
     }
     val iconsVisible = text.isNotBlank()
+    val submit = {
+        onItemComplete(TodoItem(text, icon))
+        setIcon(TodoIcon.Default)
+        setText("")
+    }
+
     Column {
         Row(
             Modifier
@@ -123,16 +130,14 @@ fun TodoItemInput(onItemComplete: (TodoItem) -> Unit) {
         ) {
             TodoInputText(
                 text = text,
-                setText,
+                onTextChange = setText,
                 modifier = Modifier
                     .weight(1f)
-                    .padding(end = 8.dp)
+                    .padding(end = 8.dp),
+                onImeAction = submit // pass the submit callback to TodoInputText
             )
             TodoEditButton(
-                onClick = {
-                    onItemComplete(TodoItem(text)) // event up.
-                    setText("") // clear internal text
-                },
+                onClick = submit, // pass the submit callback to TodoInputText
                 text = "Add",
                 modifier = Modifier.align(Alignment.CenterVertically),
                 enabled = text.isNotBlank()

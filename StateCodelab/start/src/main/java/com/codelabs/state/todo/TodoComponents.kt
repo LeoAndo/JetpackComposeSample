@@ -209,6 +209,7 @@ fun TodoInputText(
     modifier: Modifier = Modifier,
     onImeAction: () -> Unit = {}
 ) {
+    // キーボード制御を行う
     val keyboardController = LocalSoftwareKeyboardController.current
     TextField(
         value = text,
