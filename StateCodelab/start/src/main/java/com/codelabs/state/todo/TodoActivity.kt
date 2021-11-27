@@ -50,8 +50,11 @@ class TodoActivity : AppCompatActivity() {
             onAddItem = {
                 todoViewModel.addItem(it)
             },
-            onRemoveItem = {
-                todoViewModel.removeItem(it)
-            })
+            onRemoveItem = todoViewModel::removeItem,
+            onStartEdit = todoViewModel::onEditItemSelected,
+            onEditItemChange = todoViewModel::onEditItemChange,
+            onEditDone = todoViewModel::onEditDone,
+            currentlyEditing = todoViewModel.currentEditItem
+        )
     }
 }
