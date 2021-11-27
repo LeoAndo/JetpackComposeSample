@@ -46,7 +46,11 @@ import kotlin.random.Random
 fun TodoScreen(
     items: List<TodoItem>,
     onAddItem: (TodoItem) -> Unit,
-    onRemoveItem: (TodoItem) -> Unit
+    onRemoveItem: (TodoItem) -> Unit,
+    currentlyEditing: TodoItem?,
+    onStartEdit: (TodoItem) -> Unit,
+    onEditItemChange: (TodoItem) -> Unit,
+    onEditDone: () -> Unit
 ) {
     Column {
         TodoItemInputBackground(elevate = true, modifier = Modifier.fillMaxWidth()) {
@@ -58,12 +62,22 @@ fun TodoScreen(
             modifier = Modifier.weight(1f),
             contentPadding = PaddingValues(top = 8.dp)
         ) {
-            items(items = items) {
-                TodoRow(
-                    todo = it,
-                    onItemClicked = { onRemoveItem(it) },
-                    modifier = Modifier.fillParentMaxWidth()
-                )
+            items(items = items) { todo ->
+
+                if (currentlyEditing?.id == todo.id) {
+                    TodoItemInlineEditor(
+                        item = currentlyEditing,
+                        onEditItemChange = onEditItemChange,
+                        onEditDone = onEditDone,
+                        onRemoveItem = { onRemoveItem(todo) }
+                    )
+                } else {
+                    TodoRow(
+                        todo = todo,
+                        onItemClicked = { onStartEdit(it) },
+                        modifier = Modifier.fillParentMaxWidth()
+                    )
+                }
             }
         }
 
@@ -170,6 +184,21 @@ fun TodoItemInput(
     }
 }
 
+@Composable
+fun TodoItemInlineEditor(
+    item: TodoItem,
+    onEditItemChange: (TodoItem) -> Unit,
+    onEditDone: () -> Unit,
+    onRemoveItem: (TodoItem) -> Unit
+) = TodoItemInput(
+    text = item.task,
+    onTextChange = { onEditItemChange(item.copy(task = it)) },
+    icon = item.icon,
+    onIconChange = { onEditItemChange(item.copy(icon = it)) },
+    submit = onEditDone,
+    iconsVisible = true
+)
+
 private fun randomTint(): Float {
     return Random.nextFloat().coerceIn(0.3f, 0.9f)
 }
@@ -183,7 +212,7 @@ fun PreviewTodoScreen() {
         TodoItem("Apply state", TodoIcon.Done),
         TodoItem("Build dynamic UIs", TodoIcon.Square)
     )
-    TodoScreen(items, {}, {})
+    TodoScreen(items, {}, {}, null, {}, {}, {})
 }
 
 @Preview
