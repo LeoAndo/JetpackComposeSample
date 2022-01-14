@@ -1,5 +1,5 @@
 # Overview
-codeLabを触ってみて、気づいたことをPull Requestにメモしています。<br>
+codeLabを触ってみて、気づいたことをPull Requestにメモしています<br>
 https://github.com/LeoAndo/android-jetpack-compose-samples/pulls?q=is%3Apr+is%3Aclosed<br>
 
 
