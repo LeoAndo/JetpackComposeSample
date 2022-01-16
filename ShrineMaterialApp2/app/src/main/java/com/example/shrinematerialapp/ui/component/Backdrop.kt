@@ -67,7 +67,10 @@ fun Backdrop() {
             }
         },
         backLayerContent = {
-            BackdropMenuItems(onMenuItemSelected = { menuSelection = it })
+            BackdropMenuItems(
+                activeMenuItemId = menuSelection,
+                onMenuItemSelected = { menuSelection = it }
+            )
         },
         frontLayerShape = MaterialTheme.shapes.large,
         frontLayerElevation = 16.dp
@@ -76,6 +79,7 @@ fun Backdrop() {
 
 @Composable
 private fun BackdropMenuItems(
+    activeMenuItemId: Int,
     onMenuItemSelected: (index: Int) -> Unit
 ) {
     Column(
@@ -86,19 +90,34 @@ private fun BackdropMenuItems(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         menuData.forEachIndexed { index, s ->
-            MenuItem(index, s, onClick = onMenuItemSelected)
+            MenuItem(activeMenuItemId, index, s, onClick = onMenuItemSelected)
             Divider(modifier = Modifier.width(56.dp), color = MaterialTheme.colors.onBackground)
         }
     }
 }
 
 @Composable
-private fun MenuItem(index: Int, text: String = "Menu Item", onClick: (index: Int) -> Unit) {
-    Text(
-        text = text.uppercase(),
-        style = MaterialTheme.typography.subtitle1,
-        modifier = Modifier.clickable { onClick(index) }
-    )
+private fun MenuItem(
+    activeMenuItemId: Int,
+    index: Int,
+    text: String = "Menu Item",
+    onClick: (index: Int) -> Unit
+) {
+    Box(
+        contentAlignment = Alignment.Center
+    ) {
+        if (activeMenuItemId == index) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_tab_indicator),
+                contentDescription = "Tab indicator"
+            )
+        }
+        Text(
+            text = text.uppercase(),
+            style = MaterialTheme.typography.subtitle1,
+            modifier = Modifier.clickable { onClick(index) }
+        )
+    }
 }
 
 @Preview(showBackground = true)
@@ -114,7 +133,7 @@ fun BackDropPreview() {
 fun BackdropMenuItemsPreview() {
     ShrineMaterialAppTheme {
         Surface {
-            BackdropMenuItems(onMenuItemSelected = {})
+            BackdropMenuItems(onMenuItemSelected = {}, activeMenuItemId = 0)
         }
     }
 }
