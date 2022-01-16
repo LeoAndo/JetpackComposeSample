@@ -17,7 +17,7 @@ import com.example.shrinematerialapp.SampleItemsData
 import com.example.shrinematerialapp.ui.theme.ShrineMaterialAppTheme
 
 @Composable
-private fun CartItem(
+fun CartItem(
     item: ItemData
 ) {
     Row(
