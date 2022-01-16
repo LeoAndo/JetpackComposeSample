@@ -9,6 +9,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.shrinematerialapp.ui.component.Backdrop
 import com.example.shrinematerialapp.ui.component.CartItem
 import com.example.shrinematerialapp.ui.theme.ShrineMaterialAppTheme
 
@@ -19,6 +20,7 @@ class MainActivity : ComponentActivity() {
             ShrineMaterialAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
+                    // Backdrop()
                     MainScreen()
                 }
             }
