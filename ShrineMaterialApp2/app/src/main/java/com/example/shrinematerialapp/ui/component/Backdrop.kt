@@ -17,11 +17,14 @@ import com.example.shrinematerialapp.R
 import com.example.shrinematerialapp.ui.theme.ShrineMaterialAppTheme
 import kotlinx.coroutines.launch
 
+private val menuData = listOf("Feature01", "Feature02", "Feature03", "Feature04")
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun Backdrop() {
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberBackdropScaffoldState(BackdropValue.Concealed)
+    var menuSelection by remember { mutableStateOf(0) }
     BackdropScaffold(
         scaffoldState = scaffoldState,
         appBar = {
@@ -60,11 +63,11 @@ fun Backdrop() {
                     .fillMaxSize()
                     .padding(20.dp)
             ) {
-                Text("This is the content for category: xxx")
+                Text("This is the content for category: ${menuData[menuSelection]}")
             }
         },
         backLayerContent = {
-            BackdropMenuItems()
+            BackdropMenuItems(onMenuItemSelected = { menuSelection = it })
         },
         frontLayerShape = MaterialTheme.shapes.large,
         frontLayerElevation = 16.dp
@@ -72,24 +75,30 @@ fun Backdrop() {
 }
 
 @Composable
-private fun BackdropMenuItems() {
+private fun BackdropMenuItems(
+    onMenuItemSelected: (index: Int) -> Unit
+) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(32.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MenuItem("Feature01")
-        MenuItem("Feature02")
-        MenuItem("Feature03")
-        MenuItem("Feature04")
+        menuData.forEachIndexed { index, s ->
+            MenuItem(index, s, onClick = onMenuItemSelected)
+            Divider(modifier = Modifier.width(56.dp), color = MaterialTheme.colors.onBackground)
+        }
     }
 }
 
 @Composable
-fun MenuItem(text: String = "Menu Item") {
-    Text(text = text.uppercase(), style = MaterialTheme.typography.subtitle1)
+private fun MenuItem(index: Int, text: String = "Menu Item", onClick: (index: Int) -> Unit) {
+    Text(
+        text = text.uppercase(),
+        style = MaterialTheme.typography.subtitle1,
+        modifier = Modifier.clickable { onClick(index) }
+    )
 }
 
 @Preview(showBackground = true)
@@ -102,15 +111,26 @@ fun BackDropPreview() {
 
 @Preview(showBackground = true)
 @Composable
+fun BackdropMenuItemsPreview() {
+    ShrineMaterialAppTheme {
+        Surface {
+            BackdropMenuItems(onMenuItemSelected = {})
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
 fun StateTest() {
     var total by remember { mutableStateOf(0) }
-
-    Column {
-        Text("The total is $total")
-        Button(onClick = { total++ }) {
-            Icon(imageVector = Icons.Default.Face, contentDescription = "Face")
-            Spacer(modifier = Modifier.width(12.dp))
-            Text(text = "Increment")
+    ShrineMaterialAppTheme {
+        Column {
+            Text("The total is $total")
+            Button(onClick = { total++ }) {
+                Icon(imageVector = Icons.Default.Face, contentDescription = "Face")
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(text = "Increment")
+            }
         }
     }
 }
