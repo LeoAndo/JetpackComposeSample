@@ -11,5 +11,5 @@ https://github.com/LeoAndo/android-jetpack-compose-samples/pulls?q=is%3Apr+is%3A
 https://github.com/googlecodelabs/android-compose-codelabs
 
 # coding memo
-
-- 再利用可能なUI(Composable)を作成するには、Stateを持つComposableの分解から始める
+https://github.com/LeoAndo/android-jetpack-compose-training/issues<br>
+https://github.com/LeoAndo/android-jetpack-compose-training/pulls?q=is%3Apr+is%3Aclosed<br>
