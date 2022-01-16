@@ -1,5 +1,6 @@
 package com.example.shrinematerialapp.ui.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -104,10 +105,11 @@ private fun MenuItem(
     onClick: (index: Int) -> Unit
 ) {
     Box(
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.height(20.dp)
     ) {
         if (activeMenuItemId == index) {
-            Icon(
+            Image(
                 painter = painterResource(id = R.drawable.ic_tab_indicator),
                 contentDescription = "Tab indicator"
             )
