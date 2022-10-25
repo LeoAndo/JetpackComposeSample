@@ -40,17 +40,20 @@ fun LaunchedEffectDemoScreen(modifier: Modifier) {
 
     // key1 or key2に指定した値が変化したらblockの中の処理が実行される
     LaunchedEffect(key1 = text, key2 = count, block = {
-        scope.launch(dispatcher) {
-            Log.d("TAG", "key2つ指定: IN")
-            text2 = "count: $count"
-        }
+        Log.d("TAG", "key2つ指定: IN")
+        text2 = "count: $count"
     })
 
     LaunchedEffectDemoScreenStateless(
         modifier = modifier.verticalScroll(rememberScrollState()),
         text = text,
         text2 = text2,
-        onClickCountUpButton = { count++ }
+        onClickCountUpButton = {
+            scope.launch(dispatcher) {
+                delay(500L)
+                count++
+            }
+        }
     )
 }
 
