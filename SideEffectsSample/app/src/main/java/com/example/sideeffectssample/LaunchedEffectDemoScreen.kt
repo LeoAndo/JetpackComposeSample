@@ -3,6 +3,7 @@ package com.example.sideeffectssample
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -11,6 +12,8 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -75,4 +78,15 @@ fun LaunchedEffectDemoScreenStateless(
             Text(text = "Count Up")
         }
     }
+}
+
+@Preview(showBackground = true, device = Devices.PIXEL_4)
+@Composable
+fun Prev_LaunchedEffectDemoScreen() {
+    LaunchedEffectDemoScreenStateless(
+        modifier = Modifier.fillMaxSize(),
+        text = "sasasas",
+        text2 = "AAssDSD",
+        onClickCountUpButton = {},
+    )
 }
