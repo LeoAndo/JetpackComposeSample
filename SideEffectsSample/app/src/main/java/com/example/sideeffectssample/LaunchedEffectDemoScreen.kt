@@ -56,7 +56,7 @@ fun LaunchedEffectDemoScreen(modifier: Modifier) {
                 delay(500L)
                 count++
             }
-        }
+        },
     )
 }
 
@@ -87,6 +87,6 @@ fun Prev_LaunchedEffectDemoScreen() {
         modifier = Modifier.fillMaxSize(),
         text = "sasasas",
         text2 = "AAssDSD",
-        onClickCountUpButton = {},
+        {},
     )
 }
