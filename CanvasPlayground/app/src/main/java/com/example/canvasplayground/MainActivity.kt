@@ -1,6 +1,8 @@
 package com.example.canvasplayground
 
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
@@ -20,6 +23,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
+import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -130,6 +134,26 @@ fun SimpleCanvasView3() {
     )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun SimpleCanvasView4() {
+    Canvas(modifier = Modifier
+        .fillMaxSize()
+        .pointerInteropFilter { motionEvent ->
+            Log.i("TAG", "X座標: ${motionEvent.x}, Y座標：${motionEvent.y}")
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE, MotionEvent.ACTION_UP -> {
+                }
+                else -> return@pointerInteropFilter false
+            }
+            true
+        },
+        onDraw = {
+
+        }
+    )
+}
+
 @Preview(showBackground = true, device = Devices.PIXEL_4)
 @Composable
 fun DefaultPreview() {
@@ -151,5 +175,13 @@ fun DefaultPreview2() {
 fun DefaultPreview3() {
     CanvasPlaygroundTheme {
         SimpleCanvasView3()
+    }
+}
+
+@Preview(showBackground = true, device = Devices.PIXEL_4)
+@Composable
+fun DefaultPreview4() {
+    CanvasPlaygroundTheme {
+        SimpleCanvasView4()
     }
 }
