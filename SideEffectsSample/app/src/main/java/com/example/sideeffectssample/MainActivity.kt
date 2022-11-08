@@ -29,9 +29,19 @@ class MainActivity : ComponentActivity() {
                         val modifier = Modifier
                             .fillMaxSize()
                             .padding(paddingValue)
+                        /*
                         SplashScreen(modifier, onTimeout = {
                             Log.d("TAG", "onTimeout: ")
                         })
+                         */
+
+                        DisposableEffectDemoScreen(
+                            modifier = modifier,
+                            onStart = {
+                                Log.d("TAG", "onStart イベント送信！")
+                            }, onStop = {
+                                Log.d("TAG", "onStop イベント送信！")
+                            })
                     })
             }
         }
