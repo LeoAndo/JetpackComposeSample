@@ -50,7 +50,8 @@ class MainActivity : ComponentActivity() {
 //                                })
 //                        }
 
-                        TodoList(modifier = modifier)
+                        // TodoList(modifier = modifier)
+                        SnapshotFlowSample(modifier)
 
 /*
                         DisposableEffectDemoScreen(
