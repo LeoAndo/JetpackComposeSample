@@ -12,10 +12,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.delay
 
 /*
-2022-10-26 12:44:23.264  8680-8680  SplashScreen            com.example.sideeffectssample        D   IN onTimeout hashCode: 91509586
-2022-10-26 12:44:23.442  8680-8680  SplashScreen            com.example.sideeffectssample        D  currentOnTimeout: IN
-2022-10-26 12:44:28.447  8680-8680  SplashScreen            com.example.sideeffectssample        D   onTimeout hashCode: 91509586
-2022-10-26 12:44:28.447  8680-8680  SplashScreen            com.example.sideeffectssample        D   currentOnTimeout hashCode: 91509586
+正常系：
+D   IN onTimeout hashCode: 74339581
+D   currentOnTimeout: IN
+D   onTimeout hashCode: 74339581
+D   currentOnTimeout hashCode: 74339581
+
+スプラッシュ中に画面回転：
+D   IN onTimeout hashCode: 74339581
+D  currentOnTimeout: IN
+D   IN onTimeout hashCode: 132332823
+D  currentOnTimeout: IN
+D   onTimeout hashCode: 132332823
+D   currentOnTimeout hashCode: 132332823
  */
 @Composable
 fun SplashScreen(modifier: Modifier, onTimeout: () -> Unit) {

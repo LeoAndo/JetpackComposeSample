@@ -11,7 +11,7 @@ class ImageRepository(
     suspend fun load(url: String): ImageVector? {
         var imageVector: ImageVector? = null
         return withContext(dispatchers) {
-            delay(2000L)
+            delay(2000L) // ネットワーク通信をシミュレート
             if (url.isNotEmpty()) {
                 imageVector = Icons.Default.Home
             }
